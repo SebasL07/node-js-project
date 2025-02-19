@@ -2,6 +2,7 @@
 import express, {Express, Request, Response} from 'express';
 import dotenv from 'dotenv';
 import { userRouter } from './routes/user.route';
+import { db } from './lib/connectionDB';
 
 dotenv.config();
 
@@ -22,6 +23,6 @@ app.get('/notfound', (req : Request, res : Response) => {
     res.status(404).send('Hello World');
 });
 
-app.listen(port, () => {
+db.then(() => app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
-});
+}));
